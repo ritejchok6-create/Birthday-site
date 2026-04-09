@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday 🎂</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background: pink;
+      color: black;
+      margin-top: 50px;
+      transition: 0.5s;
+      overflow: hidden;
+    }
 
+    h1 {
+      font-size: 2.2rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #yes {
+      background: green;
+      color: white;
+    }
+
+    #yes:disabled {
+      background: green;
+      cursor: not-allowed;
+    }
+
+    #no {
+      background: red;
+      color: white;
+      position: absolute;
+    }
+
+    #message {
+      display: none;
+      margin: 30px;
+      font-size: 1.3rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<h1 id="title">Happy birthday my beautiful sister 🫀🥹</h1>
+
+<button id="yes" disabled>Yes</button>
+<button id="no">No </button>
+
+<div id="message"></div>
+
+<!-- 🎉 confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<!-- 🎵 نسخة مغنّية -->
+<audio id="music" src="song.mp3" loop></audio>
+<script>
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+  const body = document.body;
+  const message = document.getElementById("message");
+  const title = document.getElementById("title");
+  const music = document.getElementById("music");
+
+  let count = 0;
+
+  no.onclick = () => {
+    count++;
+
+    if (count >= 3) {
+      yes.disabled = false;
+    }
+
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+  };
+
+  yes.onclick = () => {
+    body.style.background = "#ffb6c1";
+
+    title.innerText = "Yaaay 🎉💖";
+
+    message.style.display = "block";
+    message.innerText = "Happy Birthday 🎂🥳 I couldn’t get you a real gift so I made you this instead ✨ I hope it makes you smile because you deserve all the happiness in the world 💕 You’re truly one of the most important people in my life 💖 Thank you for always being there for me and for all the beautiful moments we share ✨ I’m really grateful to have you 💖 I love you 💖";
+
+    yes.style.display = "none";
+    no.style.display = "none";
+
+    // 🎵 تشغيل الصوت ورفعو
+    music.volume = 1.0; 
+    music.play();
+
+    // 🎉 confetti
+    let duration = 3000;
+    let end = Date.now() + duration;
+
+    let interval = setInterval(() => {
+      if (Date.now() > end) {
+        clearInterval(interval);
+        return;
+      }
+
+      confetti({
+        particleCount: 50,
+        spread: 70,
+        origin: { x: Math.random(), y: Math.random() - 0.2 }
+      });
+    }, 300);
+  };
+</script>
+
+</body>
+</html>
